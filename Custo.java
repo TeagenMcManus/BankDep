@@ -10,22 +10,6 @@ public class Custo extends User {
     private saveAcc saves;
 
 
-    //specifies the user
-    public Custo() {
-
-        //Sets the username
-        setUserName("Alice");
-
-        //Sets the pin
-        setPIN("0000");
-
-        //Creates the account each time code is ran
-        check = new checkAcc();
-        saves = new saveAcc();
-
-    } //Ends Custo()
-
-
     //Function to clear the terminal when called/ did look this up 
     protected void clearScreen() {
 
@@ -36,6 +20,21 @@ public class Custo extends User {
         } //Ends the for function
 
     } //Ends clearScreen
+
+
+    //Function to add a pause
+    protected void pause() {
+
+        //Adds a gap
+        System.out.println("\n---------------");
+
+        //Tells the user to continue
+        System.out.print("Press Enter to continue...");
+        userLogin.nextLine();
+
+        //Clears the screen
+        clearScreen();
+    } //Ends the pause
 
 
     //Used to create a full new account and set the pins
@@ -58,7 +57,7 @@ public class Custo extends User {
     public static void main(String[] args) {
 
         //calls the class constructors 
-        Custo customer = new Custo();
+        Custo customer = new Custo("Alice", "0000");
 
         //Checks to see if login was successful and then starts the account
         if(customer.login()) {
@@ -74,7 +73,7 @@ public class Custo extends User {
 
         //Interface Header
         System.out.println("\nWelcome " + getUserName() + ": Customer Menu");
-        System.out.println("---------------");
+        System.out.println("--------------------------------");
 
         //Users options
         System.out.println("0: Exit");
@@ -135,56 +134,66 @@ public class Custo extends User {
     public void changePin() {
 
         //Declare these variables so they can be used in do function
-        String newPin;
-        String newPinAgain;
+        String newPin = "";
+        String newPinAgain = "";
 
         //Allows to loop untill the user gets the pins right
         do {
 
+            //Clears the screen
+            clearScreen();
+
+            //tells the user which screen they are in
+            System.out.println("    Changing PIN...");
+            System.out.println("-----------------------");
+
             //Chekcs to see if the user knows their old pin
-            System.out.println("Enter Your Old Pin: ");
+            System.out.print("Enter Your Old Pin: ");
             String userOldPin = userLogin.nextLine();
 
             //Checks to see if the old pin matches
             if (!userOldPin.equals(getPIN())) {
+                System.out.println("--------------------------------------------");
                 System.out.println("Current Pin Doesn't Match, Please Try Again.");
 
                 //Pauses so the user can read the error
                 pause();
 
-                //Clears the screen
-                clearScreen();
-
             } //End if statment()
 
-            //If the pin is correct then allows them to change it
-            System.out.println("Enter Your New Pin");
-            newPin = userLogin.nextLine();
+            else {
+                //If the pin is correct then allows them to change it
+                System.out.println("------------------");
+                System.out.print("Enter Your New Pin: ");
+                newPin = userLogin.nextLine();
 
-            //Ask the user to put their new pin in again
-            System.out.println("Re-enter Your New Pin: ");
-            newPinAgain = userLogin.nextLine();
+                //Ask the user to put their new pin in again
+                System.out.print("\nRe-enter Your New Pin: ");
+                newPinAgain = userLogin.nextLine();
 
-            //Checks to see if the new pin matches what the user put
-            if (!newPinAgain.equals(newPin)) {
-                System.out.println("New Pins Don't Match, Please Try Again.");
+                //Checks to see if the new pin matches what the user put
+                if (!newPinAgain.equals(newPin)) {
+                    System.out.println("---------------------------------------");
+                    System.out.println("New Pins Don't Match, Please Try Again.");
                 
-                //Pauses so the user can read the error
-                pause();
+                    //Pauses so the user can read the error
+                    pause();
 
-                //Clears the screen
-                clearScreen();
+                } //Ends the If statment
 
-            } //Ends the If statment
+                //Changes the new pin if the pins are correct
+                setPIN(newPin);
+                System.out.println("PIN Changed Successfully");
+
+            } //ends the else
+        
+            //Pauses the screen so the user can read
+            pause();
 
         } //Ends the do function
 
         //Loops until the user gets the pins correct
         while(!newPinAgain.equals(newPin));
-
-        //Changes the new pin if the pins are correct
-        setPIN(newPin);
-        System.out.println("PIN Changed Successfully");
 
     } //ends the changePin()
 

@@ -25,7 +25,7 @@ public class checkAcc implements HasMenu {
     protected void pause() {
 
         //Adds a gap
-        System.out.println("\n---------------");
+        System.out.println("\n--------------------------");
 
         //Tells the user to continue
         System.out.print("Press Enter to continue...");
@@ -63,7 +63,7 @@ public class checkAcc implements HasMenu {
 
         //Prints the menu for the user
         System.out.print("0: Exit\n");
-        System.out.println("1: See Checking Balance");
+        System.out.println("1: See " + getAccType() + " Balance");
         System.out.println("2: Make a Deposit");
 
         //Prints the menu with the accounts name
@@ -91,8 +91,8 @@ public class checkAcc implements HasMenu {
             clearScreen();
 
             //Welcomes the user 
-            System.out.println("Welcome " + userName + " to Your Checking Account!");
-            System.out.println("---------------");
+            System.out.println("    Welcome " + userName + " to Your " + getAccType() + " Account!");
+            System.out.println("-----------------------------------------------");
 
             //Prints the menu and ask for user input
             System.out.println(menu());
@@ -147,9 +147,9 @@ public class checkAcc implements HasMenu {
         clearScreen();
 
         //Adds a title and shows the user their balance
-        System.out.println("Current Balance");
-        System.out.println("---------------");
-        System.out.println("Balance: " + getBalString());
+        System.out.println("    Current " + getAccType() + " Balance");
+        System.out.println("--------------------------------");
+        System.out.println(getAccType() + " Balance: " + getBalString());
 
         //Pauses the text so the user can see it 
         pause();
@@ -164,8 +164,8 @@ public class checkAcc implements HasMenu {
         clearScreen();
 
         //Adds a title and ask the user how much they want to deposit
-        System.out.println("    Deposit    ");
-        System.out.println("---------------");
+        System.out.println("    Deposit (" + getAccType() + ")   ");
+        System.out.println("--------------------------");
         System.out.print("How Much Would You Like to Deposit?: ");
         
         //Setds the variable amount to a float
@@ -176,7 +176,7 @@ public class checkAcc implements HasMenu {
 
         //Shows the new balance with a gap and liner
         System.out.println("---------------");
-        System.out.println("Your New Balance is: " + getBalString());
+        System.out.println("Your New " + getAccType() + " Balance is: " + getBalString());
 
         //Pauses the menu so the user can read it
         pause();
@@ -191,12 +191,12 @@ public class checkAcc implements HasMenu {
         clearScreen();
 
         //Adds a title and ask the user how much they want to withdrawl
-        System.out.println("   Withdrawl   ");
-        System.out.println("---------------");
+        System.out.println("    Withdrawl (" + getAccType() + ")");
+        System.out.println("----------------------------");
 
         //Tells the user their current balance so they dont have to guess/go to multiple screens
-        System.out.println("Current Balance: " + getBalString());
-        System.out.println("---------------");
+        System.out.println("Current " + getAccType() + " Balance: " + getBalString());
+        System.out.println("----------------------------");
 
         //Ask the user how much they want out
         System.out.print("How Much Would You Like to Withdrawl?: ");
@@ -208,7 +208,7 @@ public class checkAcc implements HasMenu {
         if (amount > balance) {
 
             //If not then tells the user that they have an insufficient balance
-            System.out.println("---------------");
+            System.out.println("-----------------------------------");
             System.out.println("Insufficient Balance for Withdrawl.");
 
             //Pauses the menu so the user can read 
@@ -222,8 +222,8 @@ public class checkAcc implements HasMenu {
             balance -= amount;
 
             //Shows the new balance with a gap and liner
-            System.out.println("---------------");
-            System.out.println("Your New Balance is: " + getBalString());
+            System.out.println("----------------------------");
+            System.out.println("Your New "+ getAccType() + " Balance is: " + getBalString());
 
             //Pasues the menu so the user can read
             pause();
@@ -273,4 +273,9 @@ public class checkAcc implements HasMenu {
         this.balance = balance;
 
     } //Ends setBa;
+
+    //tells the user they are in their checking account
+    public String getAccType() {
+        return "Checking";
+    } //ends the getAccType
 } //Ends the class function

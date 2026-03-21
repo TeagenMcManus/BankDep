@@ -66,4 +66,10 @@ public class saveAcc extends checkAcc {
         this.interRate = changRate;
     
     } //Ends the changInterRate()
+
+    //Overirdes the getAccType in custo so it says savings
+    @Override
+    public String getAccType() {
+        return "Savings";
+    } //Ends getAccType()
 } //Ends the class saveAcc 
