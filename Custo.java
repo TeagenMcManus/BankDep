@@ -156,9 +156,6 @@ public class Custo extends User {
                 System.out.println("--------------------------------------------");
                 System.out.println("Current Pin Doesn't Match, Please Try Again.");
 
-                //Pauses so the user can read the error
-                pause();
-
             } //End if statment()
 
             else {
@@ -175,14 +172,12 @@ public class Custo extends User {
                 if (!newPinAgain.equals(newPin)) {
                     System.out.println("---------------------------------------");
                     System.out.println("New Pins Don't Match, Please Try Again.");
-                
-                    //Pauses so the user can read the error
-                    pause();
 
                 } //Ends the If statment
 
                 //Changes the new pin if the pins are correct
                 setPIN(newPin);
+                System.out.println("------------------------")
                 System.out.println("PIN Changed Successfully");
 
             } //ends the else
