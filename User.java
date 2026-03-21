@@ -12,10 +12,15 @@ public abstract class User implements HasMenu, Serializable {
 
     //Function to clear the terminal when called/ did look this up 
     protected void clearScreen() {
-    System.out.print("\033[H\033[2J");
-    System.out.flush();
+
+        //Simulates a "clear screen" by adding a lot of space between the content
+        for(int i = 0; i < 5; i++) {
+            System.out.println();
+
+        } //Ends the for function
 
     } //Ends clearScreen
+
 
     //Function to add a pause
     protected void pause() {
@@ -24,9 +29,13 @@ public abstract class User implements HasMenu, Serializable {
         System.out.println("\n---------------");
 
         //Tells the user to continue
-        System.out.println("\nPress Enter to continue...");
+        System.out.print("Press Enter to continue...");
         userLogin.nextLine();
+
+        //Clears the screen
+        clearScreen();
     } //Ends the pause
+
 
     //Login screen
     public boolean login() {
@@ -36,18 +45,16 @@ public abstract class User implements HasMenu, Serializable {
 
         //Allows to use a while function to keep looping it
         do {
-            //Clears the screen
-            clearScreen();
 
             //User interface shown
             System.out.println("     Login     \n---------------");
         
             //Ask the user for their user name
-            System.out.println("User Name: ");
+            System.out.print("User Name: ");
             String UN = userLogin.nextLine();
 
             //Ask the user for their pin
-            System.out.println("\nUser Pin: ");
+            System.out.print("User Pin: ");
             String UP = userLogin.nextLine();
 
             //Sets the login status
@@ -68,9 +75,10 @@ public abstract class User implements HasMenu, Serializable {
         if (!userName.equals(userName)) {
 
             //Tells the user their username is incorrect and gives false
-            System.out.println("\nUsername incorrect...");
+            System.out.println("\nUsername incorrect.");
+
+            //pauses until the user clicks enter
             pause();
-            clearScreen();
             return false;
 
         } //Ends the if function
@@ -79,14 +87,19 @@ public abstract class User implements HasMenu, Serializable {
 
             //Tells the user their pin is incorrect and gives false
             System.out.println("Pin incorrect.");
+
+            //pauses until the user clicks enter
             pause();
-            clearScreen();
             return false;
             
         } //Ends the else if
 
             //Tells the user if the login was successful and sends a true statment
+            System.out.println("---------------");
             System.out.println("Login Successful.");
+            
+            //pauses
+            pause();
             return true;
 
     } //Ends the login check

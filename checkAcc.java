@@ -9,15 +9,42 @@ public class checkAcc implements HasMenu {
     private double balance;
     private Scanner userInp = new Scanner(System.in);
 
+    //Function to clear the terminal when called/ did look this up 
+    protected void clearScreen() {
+
+        //Simulates a "clear screen" by adding a lot of space between the content
+        for(int i = 0; i < 5; i++) {
+            System.out.println();
+
+        } //Ends the for function
+
+    } //Ends clearScreen
+
+
+    //Function to add a pause
+    protected void pause() {
+
+        //Adds a gap
+        System.out.println("\n---------------");
+
+        //Tells the user to continue
+        System.out.print("Press Enter to continue...");
+        userInp.nextLine();
+
+    } //Ends the pause
+
+
     //Sets the bank account balance too 0
     public checkAcc() {
         this.balance = 0.0;
     }
 
+
     //Changes the actual balance to what the balance is
     public checkAcc(double balance) {
         this.balance = balance;
     }
+
 
     //Makes a new account each time since we arent implenting saving yet
     public static void main(String[] args) {
@@ -30,35 +57,26 @@ public class checkAcc implements HasMenu {
 
     } //ENds main()
 
+
     //Menu interface display
     public String menu() {
 
+        //Prints the menu for the user
+        System.out.print("0: Exit\n");
+        System.out.println("1: See Checking Balance");
+        System.out.println("2: Make a Deposit");
+
         //Prints the menu with the accounts name
-         return "    Welcome\n    " + 
-           "---------------\n\n" +
-           "0: Exit\n" +
-           "1: Manage Checking Account\n" +
-           "2: Manage Savings Account\n" +
-           "3: change PIN\n";
+        return "3: Make a Withdrawl\n";
 
     } //ends the menu
 
-    //Clears the console so that "strangers" cant see a persons account in passing
-    //I did looks this part up, but i figured it would better suit this lab and gives me more experience in real world applications
-    public void clearScreen() {
-    
-    //Tells the console that a command is coming, then moves the mouse back to starting point, and clears the console
-    System.out.print("\033[H\033[2J");
-
-    //Force run command
-    System.out.flush();
-    
-    } //Ends the clear screen
 
     //Is needed since i have other start funcs with start(getuserName) / this fixes a bug that comes with ut
     public void start() {
         start("");
     } //Ends start()
+
 
     //Start sequence
     public void start(String userName) {
@@ -73,12 +91,12 @@ public class checkAcc implements HasMenu {
             clearScreen();
 
             //Welcomes the user 
-            System.out.println("Welcome " + userName + " to Your Checking Account.");
-            System.out.println("---------------\n");
+            System.out.println("Welcome " + userName + " to Your Checking Account!");
+            System.out.println("---------------");
 
             //Prints the menu and ask for user input
             System.out.println(menu());
-            System.out.print("Please Enter a Number (0-3); ");
+            System.out.print("Please Enter a Number (0-3): ");
             
             //Gets the user input and (incase they make it a float) converts it into a int
             choice = (int)getDouble();
@@ -88,44 +106,67 @@ public class checkAcc implements HasMenu {
 
                 //Goes to the checking 
                 case 1: 
-                checkBal();
 
-                //Stops the case function for going on the next case
-                break;
+                    //sends them to the check balance screen
+                    checkBal();
+
+                    //Stops the case function for going on the next case
+                    break;
 
                 //Goes to the savings
                 case 2: 
-                makeDepo();
-                break;
+
+                    //sends them to the deposit screen
+                    makeDepo();
+                    break;
 
                 //Goes to withdrawl
                 case 3:
-                makeWith();
-                break;
+
+                    //Sends them to the withdrawl screen
+                    makeWith();
+                    break;
 
             } //Ends the switch function
+        
+            //clears the screen
+            clearScreen();
         } //Ends the do function
+
 
         //Loops until user decides to quit
         while(choice != 0);
 
     } //Ends the start function
 
+
     //Checks the balance
     public void checkBal() {
 
+        //Clears the screen 
+        clearScreen();
+
         //Adds a title and shows the user their balance
-        System.out.println("Current Balance \n==========\n");
+        System.out.println("Current Balance");
+        System.out.println("---------------");
         System.out.println("Balance: " + getBalString());
 
+        //Pauses the text so the user can see it 
+        pause();
+
     } //Ends the checkBal
+
 
     //Allows for a deposit
     public void makeDepo() {
 
+        //clears screen
+        clearScreen();
+
         //Adds a title and ask the user how much they want to deposit
-        System.out.println("Deposit \n=========\n");
-        System.out.println("How Much to Deposit?: ");
+        System.out.println("    Deposit    ");
+        System.out.println("---------------");
+        System.out.print("How Much Would You Like to Deposit?: ");
         
         //Setds the variable amount to a float
         double amount = getDouble();
@@ -134,16 +175,31 @@ public class checkAcc implements HasMenu {
         balance += amount; 
 
         //Shows the new balance with a gap and liner
-        System.out.println("\n\n==========\n Your New Balance is: " + getBalString());
+        System.out.println("---------------");
+        System.out.println("Your New Balance is: " + getBalString());
+
+        //Pauses the menu so the user can read it
+        pause();
     
     } //Ends the MakeDepo
+
 
     //Allows for a withdrawl
     public void makeWith() {
 
+        //Clears the screen 
+        clearScreen();
+
         //Adds a title and ask the user how much they want to withdrawl
-        System.out.println("Withdrawl \n=========\n");
-        System.out.println("How Much to Withdrawl?: ");
+        System.out.println("   Withdrawl   ");
+        System.out.println("---------------");
+
+        //Tells the user their current balance so they dont have to guess/go to multiple screens
+        System.out.println("Current Balance: " + getBalString());
+        System.out.println("---------------");
+
+        //Ask the user how much they want out
+        System.out.print("How Much Would You Like to Withdrawl?: ");
         
         //Setds the variable amount to a float
         double amount = getDouble();
@@ -152,7 +208,11 @@ public class checkAcc implements HasMenu {
         if (amount > balance) {
 
             //If not then tells the user that they have an insufficient balance
-            System.out.println("\n\n==========\n Insufficient Balance for Withdrawl.");
+            System.out.println("---------------");
+            System.out.println("Insufficient Balance for Withdrawl.");
+
+            //Pauses the menu so the user can read 
+            pause();
        
         } //Ends the if statment
 
@@ -162,11 +222,16 @@ public class checkAcc implements HasMenu {
             balance -= amount;
 
             //Shows the new balance with a gap and liner
-            System.out.println("\n\n==========\n Your New Balance is: " + getBalString());
+            System.out.println("---------------");
+            System.out.println("Your New Balance is: " + getBalString());
+
+            //Pasues the menu so the user can read
+            pause();
         
         } //Ends the else statment
 
     } //Ends the makeWith
+
 
     //Tells the getDouble() what to do 
     private double getDouble() {
@@ -186,11 +251,13 @@ public class checkAcc implements HasMenu {
         } //Ends the catch
     } //Ends the getDouble()
 
+
     //Returns the balance after setting it to double/float
     public double getBal() {
         return balance;
     
     }//Ends getBalance
+
 
     //Sets the balance value to a string with specific formating
     public String getBalString() {
@@ -199,6 +266,7 @@ public class checkAcc implements HasMenu {
         return String.format("$%.2f", balance);
     
     } //Ends getBalString()
+
 
     //Sets the balance in the actual class and npot the perimeter
     public void setBal(double balance) {

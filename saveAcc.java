@@ -8,6 +8,17 @@ public class saveAcc extends checkAcc {
     //Declares the intrestrate variable
     private double interRate;
 
+    //Function to clear the terminal when called/ did look this up 
+    protected void clearScreen() {
+
+        //Simulates a "clear screen" by adding a lot of space between the content
+        for(int i = 0; i < 5; i++) {
+            System.out.println();
+
+        } //Ends the for function
+
+    } //Ends clearScreen
+
     //Sets default intrest rate and calls the checkAccount constructer
     public saveAcc() {
 

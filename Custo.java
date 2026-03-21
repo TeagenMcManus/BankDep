@@ -9,6 +9,7 @@ public class Custo extends User {
     private checkAcc check;
     private saveAcc saves;
 
+
     //specifies the user
     public Custo() {
 
@@ -23,6 +24,19 @@ public class Custo extends User {
         saves = new saveAcc();
 
     } //Ends Custo()
+
+
+    //Function to clear the terminal when called/ did look this up 
+    protected void clearScreen() {
+
+        //Simulates a "clear screen" by adding a lot of space between the content
+        for(int i = 0; i < 5; i++) {
+            System.out.println();
+
+        } //Ends the for function
+
+    } //Ends clearScreen
+
 
     //Used to create a full new account and set the pins
     public Custo(String UN, String UP) {
@@ -39,6 +53,7 @@ public class Custo extends User {
 
     } //Ends custo()/ full new user
 
+
     //Runs when the class is called
     public static void main(String[] args) {
 
@@ -53,20 +68,22 @@ public class Custo extends User {
 
     } //Ends the main()
 
+
     //Gives the menu to the user
     public String menu() {
 
         //Interface Header
         System.out.println("\nWelcome " + getUserName() + ": Customer Menu");
-        System.out.println("---------------\n\n");
+        System.out.println("---------------");
 
         //Users options
         System.out.println("0: Exit");
         System.out.println("1: Manage Checking Account");
-        System.out.println("2: Manage Savings Account \n");
-        return "3) change PIN\n";
+        System.out.println("2: Manage Savings Account");
+        return "3: change PIN\n";
 
     } //Ends the HasMenu()
+
 
     //Start sequence
     public void start() {
@@ -76,13 +93,10 @@ public class Custo extends User {
 
         //Acts as an if function, but repeatedly loops
         do {
-            
-            //Clears the screen
-            clearScreen();
 
             //Prints the menu and ask for user input
             System.out.println(menu());
-            System.out.print("Please Enter a Number (0-3); ");
+            System.out.print("Please Enter a Number (0-3): ");
             
             //Gets the user input and (incase they make it a float) converts it into a int
             choice = Integer.parseInt(userLogin.nextLine());
@@ -92,7 +106,6 @@ public class Custo extends User {
 
                 //Goes to the checking 
                 case 1: 
-                System.out.println("Welcome " + getUserName() + "to Your Checking Account");
                 check.start(getUserName());
 
                 //Stops the case function for going on the next case
@@ -116,6 +129,7 @@ public class Custo extends User {
         while(choice != 0);
 
     } //Ends the start function
+
 
     //Changes the users pin
     public void changePin() {
@@ -173,6 +187,7 @@ public class Custo extends User {
         System.out.println("PIN Changed Successfully");
 
     } //ends the changePin()
+
 
     //Gets the users bank account info
     public String getRepor() {
