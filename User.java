@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.Serializable;
 
 //Creates a "basis" for teh users
-public abstract class User implements menuInter, Serializable {
+public abstract class User implements HasMenu, Serializable {
 
     //Sets local variables
     private String userName;
@@ -25,7 +25,7 @@ public abstract class User implements menuInter, Serializable {
 
         //Tells the user to continue
         System.out.println("\nPress Enter to continue...");
-        scanner.nextLine();
+        userLogin.nextLine();
     } //Ends the pause
 
     //Login screen
@@ -51,7 +51,7 @@ public abstract class User implements menuInter, Serializable {
             String UP = userLogin.nextLine();
 
             //Sets the login status
-            loggedIn = login(u, p);
+            loggedIn = login(UN, UP);
 
         } //Ends the do part
 
@@ -65,7 +65,7 @@ public abstract class User implements menuInter, Serializable {
     public boolean login(String userName, String userPIN) {
 
         //Prints out a sentance depending on the login info
-        if (!userName.equals(UN)) {
+        if (!userName.equals(userName)) {
 
             //Tells the user their username is incorrect and gives false
             System.out.println("\nUsername incorrect...");
@@ -75,7 +75,7 @@ public abstract class User implements menuInter, Serializable {
 
         } //Ends the if function
 
-        else if (!userPIN.equals(UP)) {
+        else if (!userPIN.equals(userPIN)) {
 
             //Tells the user their pin is incorrect and gives false
             System.out.println("Pin incorrect.");
@@ -87,13 +87,13 @@ public abstract class User implements menuInter, Serializable {
 
             //Tells the user if the login was successful and sends a true statment
             System.out.println("Login Successful.");
-            return True;
+            return true;
 
     } //Ends the login check
 
     //allows for the username to be changed
     public void setUserName(String UN) {
-        username = UN;
+        userName = UN;
 
     } //Ends setUserName()
 

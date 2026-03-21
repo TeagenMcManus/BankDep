@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.Serializable;
 
 //New class for savings account
-public class saveAcc extends checkAccount {
+public class saveAcc extends checkAcc {
     
     //Declares the intrestrate variable
     private double interRate;

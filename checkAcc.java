@@ -3,19 +3,19 @@ import java.util.Scanner;
 import java.io.Serializable;
 
 //Class for the customer checking account and implements the menu
-public class checkAccount implements HasMenu {
+public class checkAcc implements HasMenu {
 
     //Makes the classes
     private double balance;
     private Scanner userInp = new Scanner(System.in);
 
     //Sets the bank account balance too 0
-    public checkAccount() {
+    public checkAcc() {
         this.balance = 0.0;
     }
 
     //Changes the actual balance to what the balance is
-    public checkAccount(double balance) {
+    public checkAcc(double balance) {
         this.balance = balance;
     }
 
@@ -23,18 +23,19 @@ public class checkAccount implements HasMenu {
     public static void main(String[] args) {
         
         //Creates the new class
-        checkAccount acc = new checkAccount();
+        checkAcc acc = new checkAcc();
         
         //Starts the new class
         acc.start();
-    }
+
+    } //ENds main()
 
     //Menu interface display
     public String menu() {
 
         //Prints the menu with the accounts name
-         return "Welcome " + getUserName() + "\n" +
-           "=========================\n\n" +
+         return "    Welcome\n    " + 
+           "---------------\n\n" +
            "0: Exit\n" +
            "1: Manage Checking Account\n" +
            "2: Manage Savings Account\n" +
@@ -54,8 +55,13 @@ public class checkAccount implements HasMenu {
     
     } //Ends the clear screen
 
-    //Start sequence
+    //Is needed since i have other start funcs with start(getuserName) / this fixes a bug that comes with ut
     public void start() {
+        start("");
+    } //Ends start()
+
+    //Start sequence
+    public void start(String userName) {
 
         //Creates variable for the users choice
         int choice;
@@ -65,6 +71,10 @@ public class checkAccount implements HasMenu {
             
             //Clears the screen
             clearScreen();
+
+            //Welcomes the user 
+            System.out.println("Welcome " + userName + " to Your Checking Account.");
+            System.out.println("---------------\n");
 
             //Prints the menu and ask for user input
             System.out.println(menu());

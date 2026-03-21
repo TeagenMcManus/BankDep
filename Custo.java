@@ -20,7 +20,7 @@ public class Custo extends User {
 
         //Creates the account each time code is ran
         check = new checkAcc();
-        saves = new saceAcc();
+        saves = new saveAcc();
 
     } //Ends Custo()
 
@@ -47,14 +47,14 @@ public class Custo extends User {
 
         //Checks to see if login was successful and then starts the account
         if(customer.login()) {
-            c.start();
+            customer.start();
 
         } //Ends the if statment
 
     } //Ends the main()
 
     //Gives the menu to the user
-    public String menuInter() {
+    public String menu() {
 
         //Interface Header
         System.out.println("\nWelcome " + getUserName() + ": Customer Menu");
@@ -66,7 +66,7 @@ public class Custo extends User {
         System.out.println("2: Manage Savings Account \n");
         return "3) change PIN\n";
 
-    } //Ends the menuInter()
+    } //Ends the HasMenu()
 
     //Start sequence
     public void start() {
@@ -81,19 +81,19 @@ public class Custo extends User {
             clearScreen();
 
             //Prints the menu and ask for user input
-            System.out.println(menuInter());
+            System.out.println(menu());
             System.out.print("Please Enter a Number (0-3); ");
             
             //Gets the user input and (incase they make it a float) converts it into a int
-            choice = Intager.parseInt(userLogin.nextLine());
+            choice = Integer.parseInt(userLogin.nextLine());
 
             //Acts as an if statment but different
             switch(choice) {
 
                 //Goes to the checking 
                 case 1: 
-                System.out.println("Your Checking Account");
-                check.start();
+                System.out.println("Welcome " + getUserName() + "to Your Checking Account");
+                check.start(getUserName());
 
                 //Stops the case function for going on the next case
                 break;
@@ -101,7 +101,7 @@ public class Custo extends User {
                 //Goes to the savings
                 case 2: 
                 System.out.println("Your Savings Account");
-                saves.start();
+                saves.start(getUserName());
                 break;
 
                 //Changes the pin
@@ -120,14 +120,19 @@ public class Custo extends User {
     //Changes the users pin
     public void changePin() {
 
+        //Declare these variables so they can be used in do function
+        String newPin;
+        String newPinAgain;
+
         //Allows to loop untill the user gets the pins right
         do {
+
             //Chekcs to see if the user knows their old pin
             System.out.println("Enter Your Old Pin: ");
             String userOldPin = userLogin.nextLine();
 
             //Checks to see if the old pin matches
-            if (!oldPin.equals(getPIN())) {
+            if (!userOldPin.equals(getPIN())) {
                 System.out.println("Current Pin Doesn't Match, Please Try Again.");
 
                 //Pauses so the user can read the error
@@ -140,14 +145,14 @@ public class Custo extends User {
 
             //If the pin is correct then allows them to change it
             System.out.println("Enter Your New Pin");
-            String newPin = userLogin.nextLine();
+            newPin = userLogin.nextLine();
 
             //Ask the user to put their new pin in again
             System.out.println("Re-enter Your New Pin: ");
-            String newPinAgain = userLogin.nextLine();
+            newPinAgain = userLogin.nextLine();
 
             //Checks to see if the new pin matches what the user put
-            if (!newPinAgain.equals(pinConfirmed)) {
+            if (!newPinAgain.equals(newPin)) {
                 System.out.println("New Pins Don't Match, Please Try Again.");
                 
                 //Pauses so the user can read the error
@@ -155,16 +160,17 @@ public class Custo extends User {
 
                 //Clears the screen
                 clearScreen();
+
             } //Ends the If statment
 
         } //Ends the do function
 
         //Loops until the user gets the pins correct
-        while(!newPin.equals(pinConfirmed));
+        while(!newPinAgain.equals(newPin));
 
         //Changes the new pin if the pins are correct
-        setPin(newPin);
-        System.out.printLn("PIN Changed Successfully");
+        setPIN(newPin);
+        System.out.println("PIN Changed Successfully");
 
     } //ends the changePin()
 
@@ -177,7 +183,9 @@ public class Custo extends User {
 
         //Shwos the user their balance in each account
         System.out.println("Checking Balance: " + check.getBalString());
-        System.out.println("Savings Balance: " + saves.getBalString());
-    }
+        return "Savings Balance: " + saves.getBalString();
+
+    } //Ends the getRepor()
+
 
 } //Ends Custo class
