@@ -206,5 +206,9 @@ public class Custo extends User {
 
     } //Ends the getRepor()
 
+    //Allows the admin to apply the intrest rate since saces is private
+    public saveAcc getSaves() {
+        return saves;
+    } //Ends getSaves()
 
 } //Ends Custo class
