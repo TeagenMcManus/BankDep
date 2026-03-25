@@ -177,7 +177,7 @@ public class Custo extends User {
 
                 //Changes the new pin if the pins are correct
                 setPIN(newPin);
-                System.out.println("------------------------")
+                System.out.println("------------------------");
                 System.out.println("PIN Changed Successfully");
 
             } //ends the else

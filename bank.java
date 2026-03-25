@@ -6,11 +6,42 @@ import java.io.*;
 //Bank class structure
 public class bank implements HasMenu {
 
+
+//Function to clear the terminal when called/ did look this up 
+    protected void clearScreen() {
+
+        //Simulates a "clear screen" by adding a lot of space between the content
+        for(int i = 0; i < 5; i++) {
+            System.out.println();
+
+        } //Ends the for function
+
+    } //Ends clearScreen
+
+
+    //Function to add a pause
+    protected void pause() {
+
+        //Adds a gap
+        System.out.println("\n---------------");
+
+        //Tells the user to continue
+        System.out.print("Press Enter to continue...");
+        userInput.nextLine();
+
+        //Clears the screen
+        clearScreen();
+    } //Ends the pause
+
+
     //Makes variables 
-    private Admin admin;
+    private admin admin;
 
     //Array list of all the customers 
     private ArrayList<Custo> customers;
+
+    //Creates the userInput 
+    private Scanner userInput = new Scanner(System.in);
 
 
     //bank consturcotr
@@ -45,13 +76,13 @@ public class bank implements HasMenu {
 
     //Banks menu
     public String menu() {
-        system.pit.println("   Bank Menu   ");
+        System.out.println("   Bank Menu   ");
         System.out.println("---------------");
 
         //List the banks login screen
         System.out.println("0: Exit");
         System.out.println("1: Admin Login");
-        System.out.println("2: User Login")
+        System.out.println("2: User Login");
         return "User Action: ";
 
     } //end menu()
@@ -61,7 +92,7 @@ public class bank implements HasMenu {
     public void start() {
 
         //creates the input
-        Scanner userInput = new Scanner(Systme.in);
+        Scanner userInput = new Scanner(System.in);
         int user;
 
         //allows for the functiob ti repeat incase the user inputs wrong
@@ -119,6 +150,9 @@ public class bank implements HasMenu {
     //Admins screen
     public void startAdmin() {
 
+        //Creates the user input
+        int userInp;
+
         //allows for the function to constantly repeat until exit
         do {
 
@@ -126,10 +160,10 @@ public class bank implements HasMenu {
             System.out.print(admin.menu());
 
             //Grabs the useres input
-            user = Integer.parsetInt(userInput.nextLine());
+            userInp = Integer.parseInt(userInput.nextLine());
 
             //Acts as an if statment
-            switch(userInput) {
+            switch(userInp) {
 
                 //First "if" statment
                 case 1: 
@@ -169,7 +203,7 @@ public class bank implements HasMenu {
         } //ends the do function
 
         //Loops until the user exits
-        while(userInput != 0;);
+        while(userInp != 0);
         
     } //end starAdmin()
 
@@ -178,7 +212,7 @@ public class bank implements HasMenu {
     public void custoRepor() {
 
         //Tells the customer report
-        System.out,.println("   Report Of All Customers");
+        System.out.println("   Report Of All Customers");
         System.out.println("-----------------------------");
 
         //Gets the report
@@ -202,7 +236,7 @@ public class bank implements HasMenu {
 
         //Ask for the users pin
         System.out.println("User's PIN: ");
-        String userPin = userInput.nextLine();
+        String userPIN = userInput.nextLine();
 
         //Adds the customer to the list
         customers.add(new Custo(userName, userPIN));
@@ -225,7 +259,7 @@ public class bank implements HasMenu {
         for (Custo c : customers) {
 
             //Calculates the intrest
-            c.getSaves().calcIntre();
+            c.getSaves().calcInter();
 
             //Tells each persons new balance
             System.out.println("New Savings Balance: " + c.getSaves().getBalString());
@@ -240,7 +274,7 @@ public class bank implements HasMenu {
 
         //Ask the users name
         System.out.println("User Name: ");
-        String UserName = userInput.nextLine();
+        String userName = userInput.nextLine();
 
         //Ask for the users pin
         System.out.println("\nUsers PIN: ");
@@ -261,7 +295,7 @@ public class bank implements HasMenu {
 
         //tells the user if its it an incorecct input
         System.out.println("-------------------");
-        system.pit.println("Login Unsuccessfull");
+        System.out.println("Login Unsuccessfull");
 
         //Pauses teh screen so the user can read
         pause();
@@ -276,7 +310,7 @@ public class bank implements HasMenu {
     public void sampleCustos() {
 
         //Adds the new users
-        customers.add(new Custo("Alice", "0000"""));
+        customers.add(new Custo("Alice", "0000"));
         customers.add(new Custo("Greg", "1111"));
         customers.add(new Custo("Bella", "2222"));
 
@@ -291,15 +325,15 @@ public class bank implements HasMenu {
 
             //creates a file with the name customer.data
             ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream("customer.data");
+                new FileOutputStream("customer.data")
+                
+            ); //ends ObjectOutputStream()
 
                 //writes the customers array in the file
                 out.writeObject(customers);
 
                 //closes the file
                 out.close();
-
-            ) //ends ObjectOutputStream()
 
         } //ends the try{}
 
@@ -313,7 +347,7 @@ public class bank implements HasMenu {
     } //ends saceCustos()
 
     //Suppresess the warning when trying to save/load an array 
-    @SuppressWarnings("unchecked");
+    @SuppressWarnings("unchecked")
 
 
     //Loads the customers data
@@ -324,14 +358,16 @@ public class bank implements HasMenu {
 
             //loads teh file
             ObjectInputStream in = new ObjectInputStream(
-                new FileINputStream("customers.data");
+                new FileInputStream("customers.data")
+            
+            ); //edns ObjectInputStream()
 
                 //grabs the customers data
-                customers - (ArrayList<Custo>) in.readObject();
+                customers = (ArrayList<Custo>) in.readObject();
 
                 //closes the file
                 in.close();
-            ) //edns ObjectInputStream()
+
         } //ends try{}
 
         //Catches the errors
