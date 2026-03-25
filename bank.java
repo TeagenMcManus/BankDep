@@ -11,7 +11,7 @@ public class bank implements HasMenu {
     protected void clearScreen() {
 
         //Simulates a "clear screen" by adding a lot of space between the content
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < 10; i++) {
             System.out.println();
 
         } //Ends the for function
@@ -80,7 +80,6 @@ public class bank implements HasMenu {
         System.out.println("---------------");
 
         //List the banks login screen
-        System.out.println("0: Exit");
         System.out.println("1: Admin Login");
         System.out.println("2: User Login");
         return "User Action: ";
@@ -99,7 +98,7 @@ public class bank implements HasMenu {
         do {
 
             //prints the menu
-            System.out.println(menu());
+            System.out.print(menu());
 
             //grabs the input 
             user = Integer.parseInt(userInput.nextLine());
@@ -109,13 +108,20 @@ public class bank implements HasMenu {
 
                 //first choice
                 case 1: 
-                 
-                  //Checks to see if the login for admin was succesful
-                  if(admin.login()) {
 
-                    //Starts teh admin screen
-                    startAdmin();
-                  } //edns the if statment
+                    //Clears the screen 
+                    clearScreen();
+
+                    //Tittle
+                    System.out.println("   Admin Login");
+                    System.out.println("-----------------");
+
+                    //Checks to see if the login for admin was succesful
+                    if(admin.login()) {
+
+                        //Starts teh admin screen
+                        startAdmin();
+                    } //edns the if statment
 
                   //Breaks the function so it doest go through eahc on
                   break;
@@ -123,21 +129,32 @@ public class bank implements HasMenu {
                 //Second choice
                 case 2: 
 
+                    //Clears the screen 
+                    clearScreen();
+
+                    //Title
+                    System.out.println("   Customer Login");
+                    System.out.println("---------------------");
                     //Logins the user
                     loginCusto();
                     break;
 
-            } //ends switch
-
-            //tells the user incorrect input and restarts
-            System.out.println("---------------");
-            System.out.println("Incorrect Input, Refreshing Screen...");
+                //Prints when the user gets something wrong
+                default: 
+                    
+                    //tells the user incorrect input and restarts
+                    System.out.println("---------------");
+                    System.out.println("Incorrect Input, Refreshing Screen...");
             
-            //Puases the menu so the reader can read
-            pause();
+                    //Puases the menu so the reader can read
+                    pause();
 
-            //Clear the screen
-            clearScreen();
+                    //Clear the screen
+                    clearScreen();
+                    break;
+
+
+            } //ends switch
 
         } //end do function
 
@@ -166,39 +183,69 @@ public class bank implements HasMenu {
             switch(userInp) {
 
                 //First "if" statment
+                case 0: 
+
+                    //Clears the screen
+                    clearScreen();
+                    break;
+
+                //second "if" statment
                 case 1: 
+
+                    //Clears the screen
+                    clearScreen();
 
                     //Prints the customers report
                     custoRepor();
 
+                    //Pauses the screen so the user can read
+                    pause();
+
                     //Breaks the cycle
                     break;
 
-                //Second "if" statment
+                //third "if" statment
                 case 2: 
 
-                    //Applys intrest on all saving accounts
+                    //Clears the screen
+                    clearScreen();
+
+                    //Applies intrest to all user
                     applyIntres();
+
+                    //Pauses the screen so the user can read
+                    pause();
+
+                    //Breaks the cycle
                     break;
 
-                //third "if" statment
+
+                //fourth "if" statment
                 case 3: 
+
+                    //Clears the screen
+                    clearScreen();
 
                     //Adds a new user
                     addUser();
+
+                    //Pauses the screen so the user can read
+                    pause();
+
+                    //Breaks the cycle
                     break;
                 
+                //when user has inccorect input it prints this 
+                default: 
+                    //tells the user incorrect input
+                    System.out.println("---------------");
+                    System.out.println("Incorrect Input, Please Try Again.");
+
+                    //Pauses the screen so the user can read
+                    pause();
+                    break;
+
             } //End the switch function
-
-            //tells the user incorrect input
-            System.out.println("---------------");
-            System.out.println("Incorrect Input, Please Try Again.");
-
-            //Pauses the screen so the user can read
-            pause();
-
-            //Clears the screen
-            clearScreen();
 
         } //ends the do function
 
@@ -231,12 +278,43 @@ public class bank implements HasMenu {
         System.out.println("---------------------");
 
         //Ask for the new users name
-        System.out.println("User's Name: ");
+        System.out.print("User's Name: ");
         String userName = userInput.nextLine();
 
+        //Ask for the new users name again to verify
+        System.out.print("User's Name Again: ");
+        String userNameAgain = userInput.nextLine();
+
+        //If statment to check if the username matches
+        if (!userNameAgain.equals(userName)) {
+
+            //tells the user the username is incorrect
+            System.out.println("----------------------------------------");
+            System.out.println("Username is Incorrect, Please Try Again.");
+            return; 
+
+        } //end of if function
+
+        //Add a gap
+        System.out.println("------------------");
+
         //Ask for the users pin
-        System.out.println("User's PIN: ");
+        System.out.print("User's PIN: ");
         String userPIN = userInput.nextLine();
+
+        //Ask for the users pin again to verify
+        System.out.print("User's PIN: ");
+        String userPINAgain = userInput.nextLine();
+
+        //Checks to see if the pins match
+        if (!userPINAgain.equals(userPIN)) {
+
+            //tells the user the pin is incorrect
+            System.out.println("----------------------------------------");
+            System.out.println("Pin is Incorrect, Please Try Again.");
+            return; 
+
+        } //end of if stamtnet 
 
         //Adds the customer to the list
         customers.add(new Custo(userName, userPIN));
@@ -273,18 +351,18 @@ public class bank implements HasMenu {
     public void loginCusto() {
 
         //Ask the users name
-        System.out.println("User Name: ");
+        System.out.print("User Name: ");
         String userName = userInput.nextLine();
 
         //Ask for the users pin
-        System.out.println("\nUsers PIN: ");
+        System.out.print("Users PIN: ");
         String userPIN = userInput.nextLine();
 
         //Checks to see which login it is and if its correct
         for (Custo c : customers) {
 
             //Checks to see if the login matches anything
-            if(c.login(userName, userPIN)) {
+            if(c.loginCheck(userName, userPIN)) {
 
                 //Starts teh customer
                 c.start();

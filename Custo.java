@@ -79,7 +79,8 @@ public class Custo extends User {
         System.out.println("0: Exit");
         System.out.println("1: Manage Checking Account");
         System.out.println("2: Manage Savings Account");
-        return "3: change PIN\n";
+        System.out.println("3: See Both Account Balances");
+        return "4: change PIN\n";
 
     } //Ends the HasMenu()
 
@@ -112,14 +113,19 @@ public class Custo extends User {
 
                 //Goes to the savings
                 case 2: 
-                System.out.println("Your Savings Account");
-                saves.start(getUserName());
-                break;
+                    System.out.println("Your Savings Account");
+                    saves.start(getUserName());
+                    break;
+
+                //Shows the user both their balances
+                case 3:
+                    showUserInfo();
+                    break;
 
                 //Changes the pin
-                case 3:
-                changePin();
-                break;
+                case 4:
+                    changePin();
+                    break;
 
             } //Ends the switch function
         } //Ends the do function
@@ -196,19 +202,30 @@ public class Custo extends User {
     //Gets the users bank account info
     public String getRepor() {
 
-        //Header
-        System.out.println("Here's Your info, " + getUserName());
-        System.out.println("---------------");
-
-        //Shwos the user their balance in each account
-        System.out.println("Checking Balance: " + check.getBalString());
-        return "Savings Balance: " + saves.getBalString();
+        //Tells the user and their info
+        return "User: " + getUserName() +
+           ", Checking: " + check.getBalString() +
+           ", Savings: " + saves.getBalString();
 
     } //Ends the getRepor()
+
 
     //Allows the admin to apply the intrest rate since saces is private
     public saveAcc getSaves() {
         return saves;
     } //Ends getSaves()
 
+
+    //Displays the users banking info whne they check
+    public void showUserInfo() {
+
+        //Header
+        System.out.println("Here's Your info, " + getUserName());
+        System.out.println("---------------");
+
+        //Shwos the user their balance in each account
+        System.out.println("Checking Balance: " + check.getBalString());
+        System.out.println("Savings Balance: " + saves.getBalString());
+
+    } //end showUserInfo()
 } //Ends Custo class

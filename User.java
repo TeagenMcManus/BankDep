@@ -36,73 +36,67 @@ public abstract class User implements HasMenu, Serializable {
         clearScreen();
     } //Ends the pause
 
-
-    //Login screen
+    //MAin login function
     public boolean login() {
 
-        //Defaults the loggedIn to false so it can run
-        boolean loggedIn = false;
+        //gets the users name
+        System.out.print("User Name: ");
+        String UN = userLogin.nextLine();
 
-        //Allows to use a while function to keep looping it
-        do {
+        //Gets the users pin
+        System.out.print("User Pin: ");
+        String UP = userLogin.nextLine();
 
-            //User interface shown
-            System.out.println("     Login     \n---------------");
-        
-            //Ask the user for their user name
-            System.out.print("User Name: ");
-            String UN = userLogin.nextLine();
+        //Cslld the login check
+        return loginCheck(UN, UP);
+    }//Ends login()
 
-            //Ask the user for their pin
-            System.out.print("User Pin: ");
-            String UP = userLogin.nextLine();
 
-            //Sets the login status
-            loggedIn = login(UN, UP);
+    //Login screen
+    public boolean loginCheck(String userName, String userPIN) {
 
-        } //Ends the do part
+        //Checks to see if the user name is wrong, if so then tells teh suer so
+        if (!this.getUserName().equals(userName)) {
 
-        //Repeats the code until login is successfull
-        while(!loggedIn);
+            //tells the user incorrect input 
+            System.out.println("-----------------------");
+            System.out.println("User Name is Incorrect.");
+
+            //pauses the screen so the user can read
+            pause();
+            return false;
+
+        } //ends the if statment
+
+        //Checks to see if the pin is incorrect
+        else if (!this.getPIN().equals(userPIN)) {
+
+            //tells the user the pin is incorrect
+            System.out.println("----------------");
+            System.out.println("Pin is Incorrect");
+
+            //pauses the screen so the user can read
+            pause();
+
+            //clears the screen
+            clearScreen();
+
+            return false;
+        } //ends the else if
+
+        //if login is successfull it telss the user and return true
+        System.out.println("---------------");
+        System.out.println("Login Successful.");
+
+        //Pauses the screen so the user can read
+        pause();
+
+        //Clears the screen
+        clearScreen();
         return true;
 
-    } //Ends the login info
-
-    //Gives a boolean if the login was succesful
-    public boolean login(String userName, String userPIN) {
-
-        //Prints out a sentance depending on the login info
-        if (!userName.equals(userName)) {
-
-            //Tells the user their username is incorrect and gives false
-            System.out.println("\nUsername incorrect.");
-
-            //pauses until the user clicks enter
-            pause();
-            return false;
-
-        } //Ends the if function
-
-        else if (!userPIN.equals(userPIN)) {
-
-            //Tells the user their pin is incorrect and gives false
-            System.out.println("Pin incorrect.");
-
-            //pauses until the user clicks enter
-            pause();
-            return false;
-            
-        } //Ends the else if
-
-            //Tells the user if the login was successful and sends a true statment
-            System.out.println("---------------");
-            System.out.println("Login Successful.");
-            
-            //pauses
-            pause();
-            return true;
-
     } //Ends the login check
+
 
     //allows for the username to be changed
     public void setUserName(String UN) {
@@ -110,11 +104,13 @@ public abstract class User implements HasMenu, Serializable {
 
     } //Ends setUserName()
 
+
     //grabs the username
     public String getUserName() {
         return userName;
 
     } //Ends the getUserName()
+
 
     //Sets the pin
     public void setPIN (String UP) {
@@ -122,10 +118,12 @@ public abstract class User implements HasMenu, Serializable {
     
     } //Ends setPIN()
 
+
     //Grabs the pin
     public String getPIN() {
         return userPIN;
     } //Ends getPIN()
+
 
     public abstract String getRepor();
 
